@@ -1,0 +1,6 @@
+# Init empty database
+databaseChangeLog:
+    - changeSet:
+          id: 00
+          author: Sam
+          comment: Init empty database

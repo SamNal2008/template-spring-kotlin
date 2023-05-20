@@ -1,0 +1,4 @@
+# Create empty database changelog for now
+databaseChangeLog:
+  - includeAll:
+      path: classpath*:db/changelog/changes/
