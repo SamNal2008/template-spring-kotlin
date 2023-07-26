@@ -1,5 +1,6 @@
 package com.example.app.domain.services.company
 
+import com.example.app.domain.command.CreateCompanyCommand
 import com.example.app.domain.model.company.InvalidCompanyName
 import com.example.app.domain.port.spi.CompanyPersistencePort
 import org.junit.jupiter.api.Assertions.*
@@ -12,10 +13,10 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.mockito.kotlin.any
 
 @ExtendWith(MockitoExtension::class)
-class CreateCompanyUseCaseTest {
+class CompanyDashboardTest {
 
     @InjectMocks
-    lateinit var createCompanyUseCase: CreateCompanyUseCase
+    lateinit var companyDashboard: CompanyDashboard
 
     @Mock
     lateinit var companyPersistencePort: CompanyPersistencePort
@@ -29,7 +30,7 @@ class CreateCompanyUseCaseTest {
         // GIVEN
         doReturn(false).`when`(companyPersistencePort).isCompanyNameAlreadyTaken(COMPANY_NAME)
         // WHEN
-        createCompanyUseCase.handle("Company Name")
+        companyDashboard.createCompany(CreateCompanyCommand(COMPANY_NAME))
         // THEN
         verify(companyPersistencePort).save(any())
     }
@@ -40,7 +41,7 @@ class CreateCompanyUseCaseTest {
         doReturn(true).`when`(companyPersistencePort).isCompanyNameAlreadyTaken(COMPANY_NAME)
         // WHEN
         val exception = assertThrows(InvalidCompanyName::class.java) {
-            createCompanyUseCase.handle("Company Name")
+            companyDashboard.createCompany(CreateCompanyCommand(COMPANY_NAME))
         }
         // THEN
         assertEquals("Company name: '${COMPANY_NAME}' is already taken", exception.message)

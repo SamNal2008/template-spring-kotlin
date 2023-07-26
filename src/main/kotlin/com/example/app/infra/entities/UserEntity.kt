@@ -4,6 +4,7 @@ import com.example.app.domain.model.user.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Table
 import lombok.Getter
 import lombok.RequiredArgsConstructor
 import lombok.Setter
@@ -16,6 +17,7 @@ import java.util.*
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Table(name = "users")
 class UserEntity(
     @Id @Column(nullable = false, updatable = false) val id: UUID,
     @Column(nullable = false) val name: String,

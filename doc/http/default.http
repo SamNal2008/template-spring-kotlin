@@ -1,3 +1,39 @@
 # Make default http call on 8080
 
-GET http://localhost:8080
+# Get all companies
+GET http://localhost:8080/v1/companies
+
+###
+# Get company by id
+GET http://localhost:8080/v1/companies/181b85b2-c75a-40aa-82c7-0b1abcb1a158
+
+> {%
+    client.test("Get company created", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+# Throw 404 when company not found
+GET http://localhost:8080/v1/companies/181b85b2-c75a-40aa-82c7-0b1abcb1a157
+
+> {%
+    client.test("Get company created", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+%}
+
+###
+# Create company
+POST http://localhost:8080/v1/companies
+Content-Type: application/json
+
+{
+  "name": "New company"
+}
+
+> {%
+    client.test("Create company should return 201", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+%}

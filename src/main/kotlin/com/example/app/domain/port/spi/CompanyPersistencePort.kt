@@ -11,4 +11,6 @@ interface CompanyPersistencePort {
     fun findById(id: UUID): Company?
 
     fun isCompanyNameAlreadyTaken(name: String): Boolean
+
+    fun findAll(): List<Company>
 }
